@@ -4,11 +4,11 @@
 
 #include "utils.h"
 // partie 1
-t_cell createcell(int som,float prob) {
-    t_cell cell;
-    cell.prob = prob;
-    cell.arr = som;
-    cell.next = NULL;
+t_cell *createcell(int som, float prob) {
+    t_cell *cell = (t_cell*)malloc(sizeof(t_cell));
+    cell->prob = prob;
+    cell->arr  = som;
+    cell->next = NULL;
     return cell;
 }
 t_list createemptylist() {
@@ -17,17 +17,17 @@ t_list createemptylist() {
     return newlist;
 
 }
-void addcell(t_list *list, t_cell cell) {
-    list->head = &cell;
+void addcell(t_list *list, int som, float prob) {
+    t_cell *c = createcell(som, prob);   // alloue dynamiquement
+    c->next = list->head;
+    list->head = c;
 }
-t_list_adj createlistadj(const int n) {
-    t_list_adj new;
-    new.n = n;
-    new.tab = (t_list*)malloc(n * sizeof(t_list));
-    for (int i = 0; i < n; i++) {
-        new.tab[i] = createemptylist();
-    }
-    return new;
+t_list_adj createlistadj(int n) {
+    t_list_adj new_adj;
+    new_adj.n = n;
+    new_adj.tab = (t_list*)malloc(n * sizeof(t_list));
+    for (int i = 0; i < n; i++) new_adj.tab[i] = createemptylist();
+    return new_adj;
 }
 void displaylist(t_list list) {
     t_cell *cell;
@@ -51,6 +51,7 @@ t_list_adj readGraph(const char *filename) {
     int nbvert, depart, arrivee;
     float proba;
     t_list_adj list_adj;
+
     if (file==NULL)
     {
         perror("Could not open file for reading");
@@ -62,11 +63,12 @@ t_list_adj readGraph(const char *filename) {
         perror("Could not read number of vertices");
         exit(EXIT_FAILURE);
     }
-    list_adj = createemptylist(nbvert);
+    list_adj = createlistadj(nbvert);
     while (fscanf(file, "%d %d %f", &depart, &arrivee, &proba) == 3)
     {
         // on obtient, pour chaque ligne du fichier les valeurs
         // depart, arrivee, et proba
+        addcell(&list_adj.tab[depart - 1], arrivee, proba);
 
     }
     fclose(file);

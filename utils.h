@@ -15,13 +15,13 @@ typedef struct s_list_adj {
     int n;
     t_list *tab;
 } t_list_adj;
-t_cell createcell(int som,float prob);
-t_list createemptylist();
-void addcell(t_list *list, t_cell cell);
-void displaylistadj (t_list_adj list);
-void displaylist(t_list_adj list);
-t_list_adj createlistadj(int n);
 
+t_cell *createcell(int som, float prob);
+t_list createemptylist();
+void addcell(t_list *list, int som, float prob);
+void displaylistadj (t_list_adj list);
+void displaylist(t_list list);
+t_list_adj createlistadj(int n);
 t_list_adj readGraph(const char *filename);
 
 #endif
