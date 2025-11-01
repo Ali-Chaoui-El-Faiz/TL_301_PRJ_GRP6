@@ -16,6 +16,11 @@ typedef struct s_list_adj {
     t_list *tab;
 } t_list_adj;
 
+// Partie 2
+void verifierGrapheMarkov(t_list_adj *graphe);
+
+
+
 t_cell *createcell(int som, float prob);
 t_list createemptylist();
 void addcell(t_list *list, int som, float prob);

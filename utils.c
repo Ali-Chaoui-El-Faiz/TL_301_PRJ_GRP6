@@ -99,3 +99,40 @@ static char *getID(int i)
 
     return buffer;
 }
+
+
+// Partie 2 ; Vérification du graphe de Markov
+// Ici on cherche à voir si la somme des probas sortantes de chaque sommet est compris entre 0.99 et 1
+
+void verifierGrapheMarkov(t_list_adj *graphe) {
+
+    int erreurTrouvee = 0;
+
+    printf("\n--- Verification du graphe de Markov... ---\n");
+
+    // On parcourt chaque sommet
+    for (int i = 0; i < graphe->n; i++) {
+
+        float somme = 0.0;
+        t_cell *courant = graphe->tab[i].head; // ptr pour parcourir la liste
+
+        // On parcourt la liste chainee de ce sommet en additionnant la proba à chaque fois
+        while (courant != NULL) {
+            somme += courant->prob;
+            courant = courant->next;
+        }
+
+        // On vérifie la somme pour le sommet i
+        if (somme < 0.99 || somme > 1.0) {
+            printf(" Erreur : la somme des probabilites du sommet %d est %.2f\n", i + 1, somme);
+            erreurTrouvee = 1;
+        }
+    }
+
+    if (erreurTrouvee) {
+        printf("--- Le graphe n'est pas un graphe de Markov ---\n");
+    } else {
+        printf("OK...\n");
+        printf("--- Le graphe est un graphe de Markov ---\n");
+    }
+}
