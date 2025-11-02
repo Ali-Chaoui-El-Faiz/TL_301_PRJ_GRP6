@@ -1,0 +1,160 @@
+<html>
+<head>
+<title>utils.c</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #b3ae60;}
+.s1 { color: #bcbec4;}
+.s2 { color: #6aab73;}
+.s3 { color: #7a7e85;}
+.s4 { color: #bcbec4;}
+.s5 { color: #cf8e6d;}
+.s6 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+utils.c</font>
+</center></td></tr></table>
+<pre><span class="s0">#include </span><span class="s2">&lt;stdio.h&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;stdlib.h&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;string.h&gt;</span>
+
+<span class="s0">#include </span><span class="s2">&quot;utils.h&quot;</span>
+<span class="s3">// partie 1</span>
+<span class="s1">t_cell </span><span class="s4">*</span><span class="s1">createcell</span><span class="s4">(</span><span class="s5">int </span><span class="s1">som</span><span class="s4">, </span><span class="s5">float </span><span class="s1">prob</span><span class="s4">) {</span>
+    <span class="s1">t_cell </span><span class="s4">*</span><span class="s1">cell </span><span class="s4">= (</span><span class="s1">t_cell</span><span class="s4">*)</span><span class="s1">malloc</span><span class="s4">(</span><span class="s5">sizeof</span><span class="s4">(</span><span class="s1">t_cell</span><span class="s4">));</span>
+    <span class="s1">cell</span><span class="s4">-&gt;</span><span class="s1">prob </span><span class="s4">= </span><span class="s1">prob</span><span class="s4">;</span>
+    <span class="s1">cell</span><span class="s4">-&gt;</span><span class="s1">arr  </span><span class="s4">= </span><span class="s1">som</span><span class="s4">;</span>
+    <span class="s1">cell</span><span class="s4">-&gt;</span><span class="s1">next </span><span class="s4">= </span><span class="s1">NULL</span><span class="s4">;</span>
+    <span class="s5">return </span><span class="s1">cell</span><span class="s4">;</span>
+<span class="s4">}</span>
+<span class="s1">t_list createemptylist</span><span class="s4">() {</span>
+    <span class="s1">t_list newlist</span><span class="s4">;</span>
+    <span class="s1">newlist</span><span class="s4">.</span><span class="s1">head </span><span class="s4">= </span><span class="s1">NULL</span><span class="s4">;</span>
+    <span class="s5">return </span><span class="s1">newlist</span><span class="s4">;</span>
+
+<span class="s4">}</span>
+<span class="s5">void </span><span class="s1">addcell</span><span class="s4">(</span><span class="s1">t_list </span><span class="s4">*</span><span class="s1">list</span><span class="s4">, </span><span class="s5">int </span><span class="s1">som</span><span class="s4">, </span><span class="s5">float </span><span class="s1">prob</span><span class="s4">) {</span>
+    <span class="s1">t_cell </span><span class="s4">*</span><span class="s1">c </span><span class="s4">= </span><span class="s1">createcell</span><span class="s4">(</span><span class="s1">som</span><span class="s4">, </span><span class="s1">prob</span><span class="s4">);   </span><span class="s3">// alloue dynamiquement</span>
+    <span class="s1">c</span><span class="s4">-&gt;</span><span class="s1">next </span><span class="s4">= </span><span class="s1">list</span><span class="s4">-&gt;</span><span class="s1">head</span><span class="s4">;</span>
+    <span class="s1">list</span><span class="s4">-&gt;</span><span class="s1">head </span><span class="s4">= </span><span class="s1">c</span><span class="s4">;</span>
+<span class="s4">}</span>
+<span class="s1">t_list_adj createlistadj</span><span class="s4">(</span><span class="s5">int </span><span class="s1">n</span><span class="s4">) {</span>
+    <span class="s1">t_list_adj new_adj</span><span class="s4">;</span>
+    <span class="s1">new_adj</span><span class="s4">.</span><span class="s1">n </span><span class="s4">= </span><span class="s1">n</span><span class="s4">;</span>
+    <span class="s1">new_adj</span><span class="s4">.</span><span class="s1">tab </span><span class="s4">= (</span><span class="s1">t_list</span><span class="s4">*)</span><span class="s1">malloc</span><span class="s4">(</span><span class="s1">n </span><span class="s4">* </span><span class="s5">sizeof</span><span class="s4">(</span><span class="s1">t_list</span><span class="s4">));</span>
+    <span class="s5">for </span><span class="s4">(</span><span class="s5">int </span><span class="s1">i </span><span class="s4">= </span><span class="s6">0</span><span class="s4">; </span><span class="s1">i </span><span class="s4">&lt; </span><span class="s1">n</span><span class="s4">; </span><span class="s1">i</span><span class="s4">++) </span><span class="s1">new_adj</span><span class="s4">.</span><span class="s1">tab</span><span class="s4">[</span><span class="s1">i</span><span class="s4">] = </span><span class="s1">createemptylist</span><span class="s4">();</span>
+    <span class="s5">return </span><span class="s1">new_adj</span><span class="s4">;</span>
+<span class="s4">}</span>
+<span class="s5">void </span><span class="s1">displaylist</span><span class="s4">(</span><span class="s1">t_list list</span><span class="s4">) {</span>
+    <span class="s1">t_cell </span><span class="s4">*</span><span class="s1">cell</span><span class="s4">;</span>
+    <span class="s1">cell </span><span class="s4">= </span><span class="s1">list</span><span class="s4">.</span><span class="s1">head</span><span class="s4">;</span>
+    <span class="s1">printf</span><span class="s4">(</span><span class="s2">&quot;[head @] -&gt;</span><span class="s5">\n</span><span class="s2">&quot;</span><span class="s4">);</span>
+    <span class="s5">while </span><span class="s4">(</span><span class="s1">cell </span><span class="s4">!= </span><span class="s1">NULL</span><span class="s4">) {</span>
+        <span class="s1">printf</span><span class="s4">(</span><span class="s2">&quot; (%d,%.2f) @-&gt;&quot;</span><span class="s4">,</span><span class="s1">cell</span><span class="s4">-&gt;</span><span class="s1">arr</span><span class="s4">,</span><span class="s1">cell</span><span class="s4">-&gt;</span><span class="s1">prob</span><span class="s4">);</span>
+        <span class="s1">cell </span><span class="s4">= </span><span class="s1">cell</span><span class="s4">-&gt;</span><span class="s1">next</span><span class="s4">;</span>
+    <span class="s4">}</span>
+    <span class="s1">printf</span><span class="s4">(</span><span class="s2">&quot;</span><span class="s5">\n</span><span class="s2">&quot;</span><span class="s4">);</span>
+<span class="s4">}</span>
+<span class="s5">void </span><span class="s1">displaylistadj </span><span class="s4">(</span><span class="s1">t_list_adj list</span><span class="s4">) {</span>
+    <span class="s5">for </span><span class="s4">(</span><span class="s5">int </span><span class="s1">i </span><span class="s4">= </span><span class="s6">0</span><span class="s4">; </span><span class="s1">i </span><span class="s4">&lt; </span><span class="s1">list</span><span class="s4">.</span><span class="s1">n</span><span class="s4">; </span><span class="s1">i</span><span class="s4">++) {</span>
+        <span class="s1">printf</span><span class="s4">(</span><span class="s2">&quot;Liste pour le sommet %d:&quot;</span><span class="s4">,</span><span class="s1">i</span><span class="s4">+</span><span class="s6">1</span><span class="s4">);</span>
+        <span class="s1">displaylist</span><span class="s4">(</span><span class="s1">list</span><span class="s4">.</span><span class="s1">tab</span><span class="s4">[</span><span class="s1">i</span><span class="s4">]);</span>
+    <span class="s4">}</span>
+<span class="s4">}</span>
+
+<span class="s1">t_list_adj readGraph</span><span class="s4">(</span><span class="s5">const char </span><span class="s4">*</span><span class="s1">filename</span><span class="s4">) {</span>
+    <span class="s1">FILE </span><span class="s4">*</span><span class="s1">file </span><span class="s4">= </span><span class="s1">fopen</span><span class="s4">(</span><span class="s1">filename</span><span class="s4">, </span><span class="s2">&quot;rt&quot;</span><span class="s4">); </span><span class="s3">// read-only, text</span>
+    <span class="s5">int </span><span class="s1">nbvert</span><span class="s4">, </span><span class="s1">depart</span><span class="s4">, </span><span class="s1">arrivee</span><span class="s4">;</span>
+    <span class="s5">float </span><span class="s1">proba</span><span class="s4">;</span>
+    <span class="s1">t_list_adj list_adj</span><span class="s4">;</span>
+
+    <span class="s5">if </span><span class="s4">(</span><span class="s1">file</span><span class="s4">==</span><span class="s1">NULL</span><span class="s4">)</span>
+    <span class="s4">{</span>
+        <span class="s1">perror</span><span class="s4">(</span><span class="s2">&quot;Could not open file for reading&quot;</span><span class="s4">);</span>
+        <span class="s1">exit</span><span class="s4">(</span><span class="s1">EXIT_FAILURE</span><span class="s4">);</span>
+    <span class="s4">}</span>
+    <span class="s3">// first line contains number of vertices</span>
+    <span class="s5">if </span><span class="s4">(</span><span class="s1">fscanf</span><span class="s4">(</span><span class="s1">file</span><span class="s4">, </span><span class="s2">&quot;%d&quot;</span><span class="s4">, &amp;</span><span class="s1">nbvert</span><span class="s4">) != </span><span class="s6">1</span><span class="s4">)</span>
+    <span class="s4">{</span>
+        <span class="s1">perror</span><span class="s4">(</span><span class="s2">&quot;Could not read number of vertices&quot;</span><span class="s4">);</span>
+        <span class="s1">exit</span><span class="s4">(</span><span class="s1">EXIT_FAILURE</span><span class="s4">);</span>
+    <span class="s4">}</span>
+    <span class="s1">list_adj </span><span class="s4">= </span><span class="s1">createlistadj</span><span class="s4">(</span><span class="s1">nbvert</span><span class="s4">);</span>
+    <span class="s5">while </span><span class="s4">(</span><span class="s1">fscanf</span><span class="s4">(</span><span class="s1">file</span><span class="s4">, </span><span class="s2">&quot;%d %d %f&quot;</span><span class="s4">, &amp;</span><span class="s1">depart</span><span class="s4">, &amp;</span><span class="s1">arrivee</span><span class="s4">, &amp;</span><span class="s1">proba</span><span class="s4">) == </span><span class="s6">3</span><span class="s4">)</span>
+    <span class="s4">{</span>
+        <span class="s3">// on obtient, pour chaque ligne du fichier les valeurs</span>
+        <span class="s3">// depart, arrivee, et proba</span>
+        <span class="s1">addcell</span><span class="s4">(&amp;</span><span class="s1">list_adj</span><span class="s4">.</span><span class="s1">tab</span><span class="s4">[</span><span class="s1">depart </span><span class="s4">- </span><span class="s6">1</span><span class="s4">], </span><span class="s1">arrivee</span><span class="s4">, </span><span class="s1">proba</span><span class="s4">);</span>
+
+    <span class="s4">}</span>
+    <span class="s1">fclose</span><span class="s4">(</span><span class="s1">file</span><span class="s4">);</span>
+    <span class="s5">return </span><span class="s1">list_adj</span><span class="s4">;</span>
+<span class="s4">}</span>
+
+
+<span class="s5">static char </span><span class="s4">*</span><span class="s1">getID</span><span class="s4">(</span><span class="s5">int </span><span class="s1">i</span><span class="s4">)</span>
+<span class="s4">{</span>
+    <span class="s3">// translate from 1,2,3, .. ,500+ to A,B,C,..,Z,AA,AB,...</span>
+    <span class="s5">static char </span><span class="s1">buffer</span><span class="s4">[</span><span class="s6">10</span><span class="s4">];</span>
+    <span class="s5">char </span><span class="s1">temp</span><span class="s4">[</span><span class="s6">10</span><span class="s4">];</span>
+    <span class="s5">int </span><span class="s1">index </span><span class="s4">= </span><span class="s6">0</span><span class="s4">;</span>
+
+    <span class="s1">i</span><span class="s4">--; </span><span class="s3">// Adjust to 0-based index</span>
+    <span class="s5">while </span><span class="s4">(</span><span class="s1">i </span><span class="s4">&gt;= </span><span class="s6">0</span><span class="s4">)</span>
+    <span class="s4">{</span>
+        <span class="s1">temp</span><span class="s4">[</span><span class="s1">index</span><span class="s4">++] = </span><span class="s2">'A' </span><span class="s4">+ (</span><span class="s1">i </span><span class="s4">% </span><span class="s6">26</span><span class="s4">);</span>
+        <span class="s1">i </span><span class="s4">= (</span><span class="s1">i </span><span class="s4">/ </span><span class="s6">26</span><span class="s4">) - </span><span class="s6">1</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+    <span class="s3">// Reverse the string to get the correct order</span>
+    <span class="s5">for </span><span class="s4">(</span><span class="s5">int </span><span class="s1">j </span><span class="s4">= </span><span class="s6">0</span><span class="s4">; </span><span class="s1">j </span><span class="s4">&lt; </span><span class="s1">index</span><span class="s4">; </span><span class="s1">j</span><span class="s4">++)</span>
+    <span class="s4">{</span>
+        <span class="s1">buffer</span><span class="s4">[</span><span class="s1">j</span><span class="s4">] = </span><span class="s1">temp</span><span class="s4">[</span><span class="s1">index </span><span class="s4">- </span><span class="s1">j </span><span class="s4">- </span><span class="s6">1</span><span class="s4">];</span>
+    <span class="s4">}</span>
+    <span class="s1">buffer</span><span class="s4">[</span><span class="s1">index</span><span class="s4">] = </span><span class="s2">'</span><span class="s5">\0</span><span class="s2">'</span><span class="s4">;</span>
+
+    <span class="s5">return </span><span class="s1">buffer</span><span class="s4">;</span>
+<span class="s4">}</span>
+
+
+<span class="s3">// Partie 2 ; Vérification du graphe de Markov</span>
+<span class="s3">// Ici on cherche à voir si la somme des probas sortantes de chaque sommet est compris entre 0.99 et 1</span>
+
+<span class="s5">void </span><span class="s1">verifierGrapheMarkov</span><span class="s4">(</span><span class="s1">t_list_adj </span><span class="s4">*</span><span class="s1">graphe</span><span class="s4">) {</span>
+
+    <span class="s5">int </span><span class="s1">erreurTrouvee </span><span class="s4">= </span><span class="s6">0</span><span class="s4">;</span>
+
+    <span class="s1">printf</span><span class="s4">(</span><span class="s2">&quot;</span><span class="s5">\n</span><span class="s2">--- Verification du graphe de Markov... ---</span><span class="s5">\n</span><span class="s2">&quot;</span><span class="s4">);</span>
+
+    <span class="s3">// On parcourt chaque sommet</span>
+    <span class="s5">for </span><span class="s4">(</span><span class="s5">int </span><span class="s1">i </span><span class="s4">= </span><span class="s6">0</span><span class="s4">; </span><span class="s1">i </span><span class="s4">&lt; </span><span class="s1">graphe</span><span class="s4">-&gt;</span><span class="s1">n</span><span class="s4">; </span><span class="s1">i</span><span class="s4">++) {</span>
+
+        <span class="s5">float </span><span class="s1">somme </span><span class="s4">= </span><span class="s6">0.0</span><span class="s4">;</span>
+        <span class="s1">t_cell </span><span class="s4">*</span><span class="s1">courant </span><span class="s4">= </span><span class="s1">graphe</span><span class="s4">-&gt;</span><span class="s1">tab</span><span class="s4">[</span><span class="s1">i</span><span class="s4">].</span><span class="s1">head</span><span class="s4">; </span><span class="s3">// ptr pour parcourir la liste</span>
+
+        <span class="s3">// On parcourt la liste chainee de ce sommet en additionnant la proba à chaque fois</span>
+        <span class="s5">while </span><span class="s4">(</span><span class="s1">courant </span><span class="s4">!= </span><span class="s1">NULL</span><span class="s4">) {</span>
+            <span class="s1">somme </span><span class="s4">+= </span><span class="s1">courant</span><span class="s4">-&gt;</span><span class="s1">prob</span><span class="s4">;</span>
+            <span class="s1">courant </span><span class="s4">= </span><span class="s1">courant</span><span class="s4">-&gt;</span><span class="s1">next</span><span class="s4">;</span>
+        <span class="s4">}</span>
+
+        <span class="s3">// On vérifie la somme pour le sommet i</span>
+        <span class="s5">if </span><span class="s4">(</span><span class="s1">somme </span><span class="s4">&lt; </span><span class="s6">0.99 </span><span class="s4">|| </span><span class="s1">somme </span><span class="s4">&gt; </span><span class="s6">1.0</span><span class="s4">) {</span>
+            <span class="s1">printf</span><span class="s4">(</span><span class="s2">&quot; Erreur : la somme des probabilites du sommet %d est %.2f</span><span class="s5">\n</span><span class="s2">&quot;</span><span class="s4">, </span><span class="s1">i </span><span class="s4">+ </span><span class="s6">1</span><span class="s4">, </span><span class="s1">somme</span><span class="s4">);</span>
+            <span class="s1">erreurTrouvee </span><span class="s4">= </span><span class="s6">1</span><span class="s4">;</span>
+        <span class="s4">}</span>
+    <span class="s4">}</span>
+
+    <span class="s5">if </span><span class="s4">(</span><span class="s1">erreurTrouvee</span><span class="s4">) {</span>
+        <span class="s1">printf</span><span class="s4">(</span><span class="s2">&quot;--- Le graphe n'est pas un graphe de Markov ---</span><span class="s5">\n</span><span class="s2">&quot;</span><span class="s4">);</span>
+    <span class="s4">} </span><span class="s5">else </span><span class="s4">{</span>
+        <span class="s1">printf</span><span class="s4">(</span><span class="s2">&quot;OK...</span><span class="s5">\n</span><span class="s2">&quot;</span><span class="s4">);</span>
+        <span class="s1">printf</span><span class="s4">(</span><span class="s2">&quot;--- Le graphe est un graphe de Markov ---</span><span class="s5">\n</span><span class="s2">&quot;</span><span class="s4">);</span>
+    <span class="s4">}</span>
+<span class="s4">}</span></pre>
+</body>
+</html>

@@ -136,3 +136,32 @@ void verifierGrapheMarkov(t_list_adj *graphe) {
         printf("--- Le graphe est un graphe de Markov ---\n");
     }
 }
+//SAMY
+void exportToMermaid(t_list_adj *graphe, const char *filename) {
+    FILE *f = fopen(filename, "wt");
+    if (!f) {
+        perror("Erreur d'ouverture du fichier Mermaid");
+        return;
+    }
+
+    fprintf(f, "---\nconfig:\n   layout: elk\n   theme: neo\n   look: neo\n---\n\n");
+    fprintf(f, "flowchart LR\n");
+
+    // Sommets
+    for (int i = 0; i < graphe->n; i++) {
+        fprintf(f, "%s((%d))\n", getID(i + 1), i + 1);
+    }
+
+    fprintf(f, "\n");
+    // Arêtes
+    for (int i = 0; i < graphe->n; i++) {
+        t_cell *c = graphe->tab[i].head;
+        while (c != NULL) {
+            fprintf(f, "%s -->|%.2f|%s\n", getID(i + 1), c->prob, getID(c->arr));
+            c = c->next;
+        }
+    }
+
+    fclose(f);
+    printf("\n✅ Fichier Mermaid exporté : %s\n", filename);
+}

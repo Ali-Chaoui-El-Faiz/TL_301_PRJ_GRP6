@@ -28,5 +28,5 @@ void displaylistadj (t_list_adj list);
 void displaylist(t_list list);
 t_list_adj createlistadj(int n);
 t_list_adj readGraph(const char *filename);
-
+void exportToMermaid(t_list_adj *graphe, const char *filename);
 #endif
