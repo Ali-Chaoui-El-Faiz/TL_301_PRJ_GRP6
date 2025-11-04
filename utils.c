@@ -163,5 +163,5 @@ void exportToMermaid(t_list_adj *graphe, const char *filename) {
     }
 
     fclose(f);
-    printf("\n✅ Fichier Mermaid exporté : %s\n", filename);
+    printf("\n Fichier Mermaid exporté : %s\n", filename);
 }
