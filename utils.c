@@ -136,7 +136,7 @@ void verifierGrapheMarkov(t_list_adj *graphe) {
         printf("--- Le graphe est un graphe de Markov ---\n");
     }
 }
-//SAMY
+//SAMY étape 3
 void exportToMermaid(t_list_adj *graphe, const char *filename) {
     FILE *f = fopen(filename, "wt");
     if (!f) {
