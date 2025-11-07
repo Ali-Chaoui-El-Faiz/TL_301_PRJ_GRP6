@@ -2,23 +2,29 @@
 #include <stdlib.h>
 #include "utils.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include "utils.h"
+
 int main() {
-    t_list_adj monGraphe;
-    printf("Chargement du graphe 'exemple1.txt' :\n");
-    monGraphe = readGraph("../exemple1.txt");
-    verifierGrapheMarkov(&monGraphe);
+    // Test avec le fichier de validation étape 3
+    printf("=== VALIDATION ÉTAPE 3 ===\n");
+    printf("Chargement du graphe 'exemple_valid_step3.txt' :\n");
+    t_list_adj grapheValidation = readGraph("exemple_valid_step3.txt");
 
-    printf("\n-------------------------------------------------------\n");
+    // Vérification Markov
+    verifierGrapheMarkov(&grapheValidation);
 
-    printf("\nChargement du graphe 'exemple_erreur.txt'...\n");
-    // ici on a créee un fichier exemple_erreur.txt qui contient les meme valeurs que exemple1.txt mais où nous avons changer 0.2 par 0.1
-    t_list_adj grapheErreur = readGraph("../exemple_erreur.txt");
-    verifierGrapheMarkov(&grapheErreur);
+    // Génération du fichier Mermaid
+    const char *sortieMermaid = "validation_etape3.mmd";
+    exportToMermaid(&grapheValidation, sortieMermaid);
 
-    const char *sortieMermaid = "../graphe.mmd";
-    exportToMermaid(&monGraphe, sortieMermaid);
+    // Affichage du graphe pour vérification
+    printf("\nStructure du graphe chargé :\n");
+    displaylistadj(grapheValidation);
 
-    printf("\n--- Fin du programme ---\n");
+    printf("\n--- Fichier Mermaid genere : %s ---\n", sortieMermaid);
+
     return 0;
 }
 

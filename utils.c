@@ -74,33 +74,28 @@ t_list_adj readGraph(const char *filename) {
     fclose(file);
     return list_adj;
 }
-
-
-static char *getID(int i)
+char *getID(int num)
 {
-    // translate from 1,2,3, .. ,500+ to A,B,C,..,Z,AA,AB,...
-    static char buffer[10];
-    char temp[10];
-    int index = 0;
+    char *id = malloc(10 * sizeof(char));  // Allocation dynamique
+    int len = 0;
+    int i = num;
 
-    i--; // Adjust to 0-based index
-    while (i >= 0)
-    {
-        temp[index++] = 'A' + (i % 26);
-        i = (i / 26) - 1;
+    while (i >= 0) {
+        i--;
+        id[len++] = 'A' + (i % 26);
+        i= (i / 26) - 1;
     }
 
     // Reverse the string to get the correct order
-    for (int j = 0; j < index; j++)
-    {
-        buffer[j] = temp[index - j - 1];
+    for (int i = 0; i < len / 2; i++) {
+        char temp = id[i];
+        id[i] = id[len - 1 - i];
+        id[len - 1 - i] = temp;
     }
-    buffer[index] = '\0';
 
-    return buffer;
+    id[len] = '\0';
+    return id;
 }
-
-
 // Partie 2 ; Vérification du graphe de Markov
 // Ici on cherche à voir si la somme des probas sortantes de chaque sommet est compris entre 0.99 et 1
 
@@ -149,7 +144,9 @@ void exportToMermaid(t_list_adj *graphe, const char *filename) {
 
     // Sommets
     for (int i = 0; i < graphe->n; i++) {
-        fprintf(f, "%s((%d))\n", getID(i + 1), i + 1);
+        char *node_id = getID(i + 1);
+        fprintf(f, "%s((%d))\n", node_id, i + 1);
+        free(node_id);
     }
 
     fprintf(f, "\n");
@@ -157,7 +154,18 @@ void exportToMermaid(t_list_adj *graphe, const char *filename) {
     for (int i = 0; i < graphe->n; i++) {
         t_cell *c = graphe->tab[i].head;
         while (c != NULL) {
-            fprintf(f, "%s -->|%.2f|%s\n", getID(i + 1), c->prob, getID(c->arr));
+            char *source_id = getID(i + 1);
+            char *dest_id = getID(c->arr);
+
+            printf("DEBUG: i=%d, c->arr=%d, source=%s, dest=%s\n",
+                   i, c->arr, source_id, dest_id);
+
+            fprintf(f, "%s -->|%.2f|%s\n", source_id, c->prob, dest_id);
+
+
+            free(source_id);
+            free(dest_id);
+
             c = c->next;
         }
     }
