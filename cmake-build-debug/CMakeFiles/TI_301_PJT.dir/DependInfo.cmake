@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/samy4/CLionProjects/TL_301_PRJ_GRP6/main.c" "CMakeFiles/TI_301_PJT.dir/main.c.obj" "gcc" "CMakeFiles/TI_301_PJT.dir/main.c.obj.d"
-  "C:/Users/samy4/CLionProjects/TL_301_PRJ_GRP6/utils.c" "CMakeFiles/TI_301_PJT.dir/utils.c.obj" "gcc" "CMakeFiles/TI_301_PJT.dir/utils.c.obj.d"
+  "C:/Users/alich/CLionProjects/TL_301_PRJ_GRP6/main.c" "CMakeFiles/TI_301_PJT.dir/main.c.obj" "gcc" "CMakeFiles/TI_301_PJT.dir/main.c.obj.d"
+  "C:/Users/alich/CLionProjects/TL_301_PRJ_GRP6/utils.c" "CMakeFiles/TI_301_PJT.dir/utils.c.obj" "gcc" "CMakeFiles/TI_301_PJT.dir/utils.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
