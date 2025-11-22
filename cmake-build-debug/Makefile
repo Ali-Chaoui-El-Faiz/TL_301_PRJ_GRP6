@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2024.3.4\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\wacim\CLionProjects\TL_301_PRJ_GRP4
+CMAKE_SOURCE_DIR = C:\Users\alich\CLionProjects\TL_301_PRJ_GRP6
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\wacim\CLionProjects\TL_301_PRJ_GRP4\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\alich\CLionProjects\TL_301_PRJ_GRP6\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\wacim\CLionProjects\TL_301_PRJ_GRP4\cmake-build-debug\CMakeFiles C:\Users\wacim\CLionProjects\TL_301_PRJ_GRP4\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\alich\CLionProjects\TL_301_PRJ_GRP6\cmake-build-debug\CMakeFiles C:\Users\alich\CLionProjects\TL_301_PRJ_GRP6\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\wacim\CLionProjects\TL_301_PRJ_GRP4\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\alich\CLionProjects\TL_301_PRJ_GRP6\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -127,6 +127,30 @@ TI_301_PJT: cmake_check_build_system
 TI_301_PJT/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\TI_301_PJT.dir\build.make CMakeFiles/TI_301_PJT.dir/build
 .PHONY : TI_301_PJT/fast
+
+hasse.obj: hasse.c.obj
+.PHONY : hasse.obj
+
+# target to build an object file
+hasse.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\TI_301_PJT.dir\build.make CMakeFiles/TI_301_PJT.dir/hasse.c.obj
+.PHONY : hasse.c.obj
+
+hasse.i: hasse.c.i
+.PHONY : hasse.i
+
+# target to preprocess a source file
+hasse.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\TI_301_PJT.dir\build.make CMakeFiles/TI_301_PJT.dir/hasse.c.i
+.PHONY : hasse.c.i
+
+hasse.s: hasse.c.s
+.PHONY : hasse.s
+
+# target to generate assembly for a file
+hasse.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\TI_301_PJT.dir\build.make CMakeFiles/TI_301_PJT.dir/hasse.c.s
+.PHONY : hasse.c.s
 
 main.obj: main.c.obj
 .PHONY : main.obj
@@ -209,6 +233,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... TI_301_PJT
+	@echo ... hasse.obj
+	@echo ... hasse.i
+	@echo ... hasse.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

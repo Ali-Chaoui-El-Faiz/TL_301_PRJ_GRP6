@@ -1,30 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include "utils.h"
+#include "vertex.h"
+#include "hasse.h"
 
 int main() {
-    // Test avec le fichier de validation étape 3
-    printf("=== VALIDATION ÉTAPE 3 ===\n");
-    printf("Chargement du graphe 'exemple_valid_step3.txt' :\n");
-    t_list_adj grapheValidation = readGraph("exemple_valid_step3.txt");
+    const char *filename = "graphe10.txt";
 
-    // Vérification Markov
-    verifierGrapheMarkov(&grapheValidation);
+    printf("=== PROJET GRAPHES DE MARKOV ===\n\n");
 
-    // Génération du fichier Mermaid
-    const char *sortieMermaid = "validation_etape3.mmd";
-    exportToMermaid(&grapheValidation, sortieMermaid);
+    // ETAPE 1 : Chargement du graphe
 
-    // Affichage du graphe pour vérification
-    printf("\nStructure du graphe chargé :\n");
-    displaylistadj(grapheValidation);
+    printf("--- Chargement du graphe depuis '%s' ---\n", filename);
+    t_list_adj graphe = readGraph(filename);
+    displaylistadj(graphe);
 
-    printf("\n--- Fichier Mermaid genere : %s ---\n", sortieMermaid);
+    // Vérification si c'est bien un graphe de Markov (Partie 1)
+    verifierGrapheMarkov(&graphe);
 
+    // Export du graphe initial (Partie 1)
+    exportToMermaid(&graphe, "graphe_initial.mmd");
+
+
+    // ETAPE 2 : Algorithme de Tarjan (Création des classes)
+
+    printf("\n--- Algorithme de Tarjan (Recherche des classes) ---\n");
+
+    t_partition p;
+    // Appel de la fonction Tarjan (qui remplit la partition 'p')
+    tarjan(&graphe, &p);
+
+    // Affichage des classes trouvées
+    afficher_partition(&p);
+
+
+    // ETAPE 3 : Diagramme de Hasse et Propriétés
+
+    printf("\n--- Construction du Diagramme de Hasse ---\n");
+
+    // 1. Création des liens entre les classes
+    t_link_array liens = createLinkArray(&p, &graphe);
+    printf("Nombre de liens trouves (brut) : %d\n", liens.log_size);
+
+    // 2. Suppression des liens transitifs
+    removeTransitiveLinks(&liens);
+    printf("Nombre de liens apres simplification : %d\n", liens.log_size);
+
+    // 3. Export en Mermaid pour visualiser les classes
+    exportHasseMermaid(&p, &liens, "diagramme_hasse.mmd");
+
+    // 4. Affichage des propriétés (Transitoire, Persistante, Absorbant, Irréductible)
+    printGraphProperties(&p, &liens);
+
+
+    freeLinkArray(&liens);
+    free_partition(&p);
+
+    printf("\n=== Fin du programme ===\n");
     return 0;
 }
-
