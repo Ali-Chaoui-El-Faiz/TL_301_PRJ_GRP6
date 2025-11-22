@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2024.3.4\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\alich\CLionProjects\TL_301_PRJ_GRP6
+CMAKE_SOURCE_DIR = C:\Users\wacim\CLionProjects\TL_301_PRJ_GRP4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\alich\CLionProjects\TL_301_PRJ_GRP6\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\wacim\CLionProjects\TL_301_PRJ_GRP4\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\alich\CLionProjects\TL_301_PRJ_GRP6\cmake-build-debug\CMakeFiles C:\Users\alich\CLionProjects\TL_301_PRJ_GRP6\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\wacim\CLionProjects\TL_301_PRJ_GRP4\cmake-build-debug\CMakeFiles C:\Users\wacim\CLionProjects\TL_301_PRJ_GRP4\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\alich\CLionProjects\TL_301_PRJ_GRP6\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\wacim\CLionProjects\TL_301_PRJ_GRP4\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -176,6 +176,30 @@ utils.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\TI_301_PJT.dir\build.make CMakeFiles/TI_301_PJT.dir/utils.c.s
 .PHONY : utils.c.s
 
+vertex.obj: vertex.c.obj
+.PHONY : vertex.obj
+
+# target to build an object file
+vertex.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\TI_301_PJT.dir\build.make CMakeFiles/TI_301_PJT.dir/vertex.c.obj
+.PHONY : vertex.c.obj
+
+vertex.i: vertex.c.i
+.PHONY : vertex.i
+
+# target to preprocess a source file
+vertex.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\TI_301_PJT.dir\build.make CMakeFiles/TI_301_PJT.dir/vertex.c.i
+.PHONY : vertex.c.i
+
+vertex.s: vertex.c.s
+.PHONY : vertex.s
+
+# target to generate assembly for a file
+vertex.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\TI_301_PJT.dir\build.make CMakeFiles/TI_301_PJT.dir/vertex.c.s
+.PHONY : vertex.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -191,6 +215,9 @@ help:
 	@echo ... utils.obj
 	@echo ... utils.i
 	@echo ... utils.s
+	@echo ... vertex.obj
+	@echo ... vertex.i
+	@echo ... vertex.s
 .PHONY : help
 
 
